@@ -1,0 +1,65 @@
+### GET ALL
+GET http://localhost:8080/api/v1/orders
+
+
+### GET One
+GET http://localhost:8080/api/v1/orders/67b474bacfb39df410e04918
+
+
+### create
+POST http://localhost:8080/api/v1/orders
+Content-Type: application/json
+
+{
+    "customerId": "67b474bacfb39df410e04918",
+    "orderStatus": "Pending",
+    "requiredDate": "2024-02-01",
+    "items": [
+        {
+            "productId": "67b476518bf53c888a7d9252",
+            "quantity": 2,
+            "price": 599.99,
+            "discount": 10
+        }
+    ]
+}
+
+
+### UPDATE
+PUT http://localhost:8080/api/v1/orders/67b474bacfb39df410e04918
+Content-Type: application/json
+
+{
+    "orderStatus": "Processing",
+    "shippedDate": "2024-01-25"
+}
+
+
+### Add Order Item
+POST http://localhost:8080/api/v1/orders/67b474bacfb39df410e04918/items
+Content-Type: application/json
+
+{
+    "productId": "67b476518bf53c888a7d9252",
+    "quantity": 1,
+    "price": 299.99,
+    "discount": 0
+}
+
+
+### Update Order Item
+PUT http://localhost:8080/api/v1/orders/67b474bacfb39df410e04918/items/67b7171dc2363f3c1a6f709a
+Content-Type: application/json
+
+{
+    "quantity": 3,
+    "discount": 15
+}
+
+
+### Remove Order Item
+DELETE http://localhost:8080/api/v1/orders/67b474bacfb39df410e04918/items/67b7171dc2363f3c1a6f709a
+
+
+### DELETE Order
+DELETE http://localhost:8080/api/v1/orders/67b474bacfb39df410e04918

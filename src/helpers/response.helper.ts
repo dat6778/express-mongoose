@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Response } from 'express';
 
 export const httpStatus = {
     OK: { statusCode: 200, message: 'Success' },

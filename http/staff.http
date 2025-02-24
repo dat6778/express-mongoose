@@ -1,0 +1,34 @@
+### GET ALL
+GET http://localhost:8080/api/v1/staff
+
+
+### GET One
+GET http://localhost:8080/api/v1/staff/67b474bacfb39df410e04918
+
+
+### create
+POST http://localhost:8080/api/v1/staff
+Content-Type: application/json
+
+{
+    "firstName": "Admin",
+    "lastName": "User",
+    "email": "admin@bikestore.com",
+    "phone": "999-888-7777",
+    "password": "admin123",
+    "active": true
+}
+
+
+### UPDATE
+PUT http://localhost:8080/api/v1/staff/67b474bacfb39df410e04918
+Content-Type: application/json
+
+{
+    "phone": "999-777-6666",
+    "active": false
+}
+
+
+### DELETE
+DELETE http://localhost:8080/api/v1/staff/67b474bacfb39df410e04918

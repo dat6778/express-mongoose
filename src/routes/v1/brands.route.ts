@@ -22,4 +22,15 @@ router.put("/brands/:id", brandsController.updateByID);
 router.delete("/brands/:id", brandsController.deleteById);
 
 /// + Resource API = bao gồm nhiều phương thức
+import { Router } from 'express';
+// Remove duplicate import since brandsController is already imported above
+
+// Router is already declared above, no need to redeclare
+
+router.get('/brands', brandsController.getAll);
+router.get('/brands/:id', brandsController.getById);
+router.post('/brands', brandsController.create);
+router.put('/brands/:id', brandsController.updateByID);
+router.delete('/brands/:id', brandsController.deleteById);
+
 export default router;

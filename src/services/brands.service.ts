@@ -32,7 +32,7 @@ const getById = (id: number)=>{
     return brand;
 }
 
-const create = async (payload)=>{
+const create = async (payload: any)=>{
     //brands.push(payload);
     const brand = new brandModel(payload)
     await brand.save()

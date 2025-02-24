@@ -1,5 +1,5 @@
 import express from "express";
-import categoriesController from "../../controllers/categories.controller";
+import * as categoriesController from "../../controllers/categories.controller";
 const router = express.Router();
 
 /**
@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Get All Categories
 // GET /api/v1/categories
-router.get("/categories", categoriesController.getAll);
+router.get("/categories", categoriesController.getAllCategories);
 // Get Category by Id
 router.get("/categories/:id", categoriesController.getById);
 // Create Category

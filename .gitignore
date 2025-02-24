@@ -1,4 +1,30 @@
-# liet ke danh sach cac file hoac thu muc khong muon dua len git
+# Bỏ qua các tệp biên dịch
+*.class
+*.o
+*.so
+
+# Bỏ qua các tệp nhật ký
+*.log
+
+# Bỏ qua các tệp tạm thời
+*.tmp
+*.swp
+
+# Bỏ qua thư mục build và dist
+/build/
+/dist/
+/.qodo/
+
+# Bỏ qua thư mục node_modules (dự án Node.js)
+node_modules/
+
+# Bỏ qua tệp cấu hình cá nhân
+config.json
 .env
 
-node_modules
+# Bỏ qua thư mục .vscode (cấu hình Visual Studio Code)
+.vscode/
+
+# Bỏ qua các tệp hệ điều hành
+.DS_Store
+Thumbs.db

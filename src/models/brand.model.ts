@@ -1,25 +1,35 @@
 import { Schema, model } from "mongoose";
+import slugify from "slugify";
 
 const brandSchema = new Schema({
-    brand_name: {
+    brandName: {
         type: String,
-        required: true, // NOT NULL
-        unique: true, // duy nhất
-        minLength: [4, 'Tối thiểu phải 4 kí tự'], // độ dài tối thiểu
-        maxLength: 50, // độ dài tối đa
+        required: true,
+        unique: true,
+        trim: true,
+        maxLength: 100
     },
     description: {
         type: String,
         maxLength: 500,
-        trim: true, // xóa khoảng trắng ở đầu và cuối 
-        default: "" // giá trị mặc định khi tạo mới
-     },
-    
-},
-    { 
-        timestamps: true, // tự động sinh ra 2 trường createdAt và updatedAt
-        versionKey: false, // bỏ đi trường __v
-        collection: "brands" // tùy chỉnh tên collection để tiện quản lý
-     })
+        required: false
+    },
+    slug: {
+        type: String,
+        unique: true,
+        maxLength: 100,
+        lowercase: true
+    }
+}, {
+    timestamps: true,
+    versionKey: false
+});
+
+brandSchema.pre('save', function(next) {
+    if (!this.slug) {
+        this.slug = slugify(this.brandName, { lower: true });
+    }
+    next();
+});
 
 export default model("Brand", brandSchema);

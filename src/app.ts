@@ -6,20 +6,15 @@ import categoriesRouter from './routes/v1/categories.route'
 import brandsRouter from './routes/v1/brands.route'
 import queriesRouter from './routes/v1/queries.route'
 import productsRouter from './routes/v1/products.route'
+import brandRouter from './routes/v1/brands.route';
 /** -------|| INITIAL APP || --------- */
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-/** -------|| BEGIN REGISTER ROUTES || --------- */
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
-});
-//Đăng ký một route từ file bên ngoài
-app.use('/api/v1', categoriesRouter);
-app.use('/api/v1', brandsRouter);
-app.use('/api/v1', queriesRouter);
-app.use('/api/v1', productsRouter);
+// Register routes
+app.use('/api/v1/brands', brandRouter);
+
 /** -------|| END REGISTER ROUTES || --------- */
 
 // NO EDIT BEGIN HERE

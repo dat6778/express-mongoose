@@ -1,0 +1,37 @@
+### GET ALL
+GET http://localhost:8080/api/v1/customers
+
+
+### GET One
+GET http://localhost:8080/api/v1/customers/67b474bacfb39df410e04918
+
+
+### create
+POST http://localhost:8080/api/v1/customers
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "phone": "123-456-7890",
+    "email": "john.doe@example.com",
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "CA",
+    "zipCode": "12345",
+    "password": "password123"
+}
+
+
+### UPDATE
+PUT http://localhost:8080/api/v1/customers/67b474bacfb39df410e04918
+Content-Type: application/json
+
+{
+    "phone": "098-765-4321",
+    "street": "456 Oak Avenue"
+}
+
+
+### DELETE
+DELETE http://localhost:8080/api/v1/customers/67b474bacfb39df410e04918
