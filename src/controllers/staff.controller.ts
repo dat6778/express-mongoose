@@ -1,81 +1,37 @@
 import { Request, Response } from 'express';
 import staffService from '../services/staff.service';
-import { httpStatus, sendJsonSuccess } from '../helpers/response.helper';
+import { sendJsonSuccess } from '../helpers/response.helper';
 
-class StaffController {
-    async getAll(req: Request, res: Response) {
-        try {
-            const staffMembers = await staffService.getAll();
-            sendJsonSuccess(res, staffMembers);
-        } catch (error) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            } else {
-                res.status(500).json({ message: 'An unknown error occurred' });
-            }
-        }
+const staffController = {
+    getAll: async (req: Request, res: Response) => {
+        const staff = await staffService.getAll();
+        sendJsonSuccess(res, staff);
+    },
+
+    getById: async (req: Request, res: Response) => {
+        const {id} = req.params;
+        const staff = await staffService.getById(id);
+        sendJsonSuccess(res, staff);
+    },
+
+    create: async (req: Request, res: Response) => {
+        const payload = req.body;
+        const staff = await staffService.create(payload);
+        sendJsonSuccess(res, staff, 201);
+    },
+
+    updateByID: async (req: Request, res: Response) => {
+        const {id} = req.params;
+        const payload = req.body;
+        const result = await staffService.updateById(id, payload);
+        sendJsonSuccess(res, result);
+    },
+
+    deleteById: async (req: Request, res: Response) => {
+        const {id} = req.params;
+        const staff = await staffService.deleteById(id);
+        sendJsonSuccess(res, staff);
     }
+};
 
-    async getById(req: Request, res: Response) {
-        try {
-            const staff = await staffService.getById(req.params.id);
-            if (!staff) {
-                return res.status(404).json({ message: 'Staff member not found' });
-            }
-            sendJsonSuccess(res, staff);
-        } catch (error) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            } else {
-                res.status(500).json({ message: 'An unknown error occurred' });
-            }
-        }
-    }
-
-    async create(req: Request, res: Response) {
-        try {
-            const staff = await staffService.create(req.body);
-            sendJsonSuccess(res, staff, httpStatus.CREATED.statusCode);
-        } catch (error) {
-            if (error instanceof Error) {
-                res.status(400).json({ message: error.message });
-            } else {
-                res.status(400).json({ message: 'An unknown error occurred' });
-            }
-        }
-    }
-
-    async updateById(req: Request, res: Response) {
-        try {
-            const staff = await staffService.updateById(req.params.id, req.body);
-            if (!staff) {
-                return res.status(404).json({ message: 'Staff member not found' });
-            }
-            sendJsonSuccess(res, staff);
-        } catch (error) {
-            if (error instanceof Error) {
-                res.status(400).json({ message: error.message });
-            } else {
-                res.status(400).json({ message: 'An unknown error occurred' });
-            }
-        }
-    }
-
-    async deleteById(req: Request, res: Response) {
-        try {
-            const staff = await staffService.deleteById(req.params.id);
-            if (!staff) {
-                return res.status(404).json({ message: 'Staff member not found' });
-            }
-            sendJsonSuccess(res, { message: 'Staff member deleted successfully' });
-        } catch (error) {
-            if (error instanceof Error) {
-                res.status(500).json({ message: error.message });
-            } else {
-                res.status(500).json({ message: 'An unknown error occurred' });
-            }
-        }
-    }
-}
-
-export default new StaffController();
+export default staffController;

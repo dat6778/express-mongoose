@@ -1,12 +1,21 @@
 import Order from '../models/order.model';
+import createError from 'http-errors';
 
 class OrderService {
     async getAll() {
-        return await Order.find().populate('customerId').populate('items.productId');
+        return await Order.find()
+            .populate('customerId')
+            .populate('items.productId');
     }
 
     async getById(id: string) {
-        return await Order.findById(id).populate('customerId').populate('items.productId');
+        const order = await Order.findById(id)
+            .populate('customerId')
+            .populate('items.productId');
+        if (!order) {
+            throw createError(404, 'Order not found');
+        }
+        return order;
     }
 
     async create(data: any) {
@@ -15,38 +24,57 @@ class OrderService {
     }
 
     async updateById(id: string, data: any) {
-        return await Order.findByIdAndUpdate(id, data, { new: true })
+        const order = await Order.findByIdAndUpdate(id, data, { new: true })
             .populate('customerId')
             .populate('items.productId');
+        if (!order) {
+            throw createError(404, 'Order not found');
+        }
+        return order;
     }
 
     async deleteById(id: string) {
-        return await Order.findByIdAndDelete(id);
+        const order = await Order.findByIdAndDelete(id);
+        if (!order) {
+            throw createError(404, 'Order not found');
+        }
+        return order;
     }
 
-    // Order Items methods
     async addOrderItem(orderId: string, itemData: any) {
-        return await Order.findByIdAndUpdate(
+        const order = await Order.findByIdAndUpdate(
             orderId,
             { $push: { items: itemData } },
             { new: true }
         ).populate('customerId').populate('items.productId');
+        if (!order) {
+            throw createError(404, 'Order not found');
+        }
+        return order;
     }
 
     async removeOrderItem(orderId: string, itemId: string) {
-        return await Order.findByIdAndUpdate(
+        const order = await Order.findByIdAndUpdate(
             orderId,
             { $pull: { items: { _id: itemId } } },
             { new: true }
         ).populate('customerId').populate('items.productId');
+        if (!order) {
+            throw createError(404, 'Order not found');
+        }
+        return order;
     }
 
     async updateOrderItem(orderId: string, itemId: string, itemData: any) {
-        return await Order.findOneAndUpdate(
+        const order = await Order.findOneAndUpdate(
             { _id: orderId, 'items._id': itemId },
             { $set: { 'items.$': itemData } },
             { new: true }
         ).populate('customerId').populate('items.productId');
+        if (!order) {
+            throw createError(404, 'Order or item not found');
+        }
+        return order;
     }
 }
 

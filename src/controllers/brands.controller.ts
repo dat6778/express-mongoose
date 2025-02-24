@@ -18,7 +18,7 @@ const getAll =async (req: Request, res: Response) => {
 }
 const getById = (req: Request, res: Response) => {
     const {id} = req.params;
-    const brand = brandsService.getById(Number(id));
+    const brand = brandsService.getById(id);
     res.status(200).json(brand);
  
 }
@@ -37,13 +37,13 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 const updateByID = (req: Request, res: Response) => {
     const {id} = req.params;
     const payload = req.body;
-    const result = brandsService.updateById(Number(id), payload);
+    const result = brandsService.updateById(id, payload);
     res.status(200).json(result);
 }
 
 const deleteById = (req: Request, res: Response) => {
     const {id} = req.params;
-   const brand = brandsService.deleteById(Number(id));
+   const brand = brandsService.deleteById(id);
     res.status(200).json(brand);
 }
 

@@ -2,29 +2,24 @@ import express, { Request, Response, NextFunction } from "express";
 import customerController from "../../controllers/customer.controller";
 const router = express.Router();
 
-// Get All Customers
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
-    customerController.getAll(req, res, next);
+router.get("/customers", (req: Request, res: Response, next: NextFunction) => {
+    customerController.getAll(req, res).catch(next);
 });
 
-// Get Customer by Id
-router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
-    customerController.getById(req, res, next);
+router.get("/customers/:id", (req: Request, res: Response, next: NextFunction) => {
+    customerController.getById(req, res).catch(next);
 });
 
-// Create Customer
-router.post("/", (req: Request, res: Response, next: NextFunction) => {
-    customerController.create(req, res, next);
+router.post("/customers", (req: Request, res: Response, next: NextFunction) => {
+    customerController.create(req, res).catch(next);
 });
 
-// Update Customer
-router.put("/:id", (req: Request, res: Response, next: NextFunction) => {
-    customerController.updateById(req, res, next);
+router.put("/customers/:id", (req: Request, res: Response, next: NextFunction) => {
+    customerController.updateByID(req, res).catch(next);
 });
 
-// Delete Customer
-router.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
-    customerController.deleteById(req, res, next);
+router.delete("/customers/:id", (req: Request, res: Response, next: NextFunction) => {
+    customerController.deleteById(req, res).catch(next);
 });
 
 export default router;

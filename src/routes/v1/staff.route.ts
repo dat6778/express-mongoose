@@ -2,21 +2,10 @@ import express, { Request, Response, NextFunction } from "express";
 import staffController from "../../controllers/staff.controller";
 const router = express.Router();
 
-// Get All Staff
-router.get("/", staffController.getAll);
-// Get Staff by Id
-router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
-    staffController.getById(req, res);
-});
-// Create Staff
-router.post("/", staffController.create);
-// Update Staff
-router.put("/:id", (req: Request, res: Response, next: NextFunction) => {
-    staffController.updateById(req, res);
-});
-// Delete Staff
-router.delete("/:id", (req: Request, res: Response, next: NextFunction) => {
-    staffController.deleteById(req, res);
-});
+router.get("/staff", staffController.getAll);
+router.get("/staff/:id", staffController.getById);
+router.post("/staff", staffController.create);
+router.put("/staff/:id", staffController.updateByID);
+router.delete("/staff/:id", staffController.deleteById);
 
 export default router;

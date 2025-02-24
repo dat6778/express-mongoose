@@ -1,23 +1,28 @@
 ### GET ALL
 GET http://localhost:8080/api/v1/categories
 
+### GET One (replace with actual ObjectId from your database)
+GET http://localhost:8080/api/v1/categories/65f3f1234567890123456789
 
-### GET One
-GET http://localhost:8080/api/v1/categories/2
-
-### create
+### Create
 POST http://localhost:8080/api/v1/categories
 Content-Type: application/json
 
 {
-  "category_name": "Electronics",
-  "description": "Electronics description"
+    "category_name": "Electronics",
+    "description": "Electronics description",
+    "slug": "electronics"
 }
 
-### uPDATE
-PUT http://localhost:8080/api/v1/categories/1
+### Update (replace with actual ObjectId from your database)
+PUT http://localhost:8080/api/v1/categories/65f3f1234567890123456789
 Content-Type: application/json
 
 {
-  "name": "Electricity"
+    "category_name": "Electronics Updated",
+    "description": "Updated description",
+    "slug": "electronics-updated"
 }
+
+### Delete (replace with actual ObjectId from your database)
+DELETE http://localhost:8080/api/v1/categories/65f3f1234567890123456789

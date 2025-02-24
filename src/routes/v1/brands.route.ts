@@ -3,34 +3,23 @@ import brandsController from "../../controllers/brands.controller";
 const router = express.Router();
 
 /**
- * route để định tuyến
- *  path <==> controller 
+ * Brands Resource Routes
+ * Base Path: /api/v1/brands
  */
 
-// Get All Brands
-// GET /api/v1/brands
+// Get all brands
 router.get("/brands", brandsController.getAll);
-// Get Brand by Id
+
+// Get brand by ID
 router.get("/brands/:id", brandsController.getById);
-// Create Brand
-// POST /api/v1/brands
+
+// Create new brand
 router.post("/brands", brandsController.create);
-// Update Brand
-// PUT /api/v1/brands/:id
+
+// Update brand by ID
 router.put("/brands/:id", brandsController.updateByID);
-// DELETE /api/v1/brands/:id
+
+// Delete brand by ID
 router.delete("/brands/:id", brandsController.deleteById);
-
-/// + Resource API = bao gồm nhiều phương thức
-import { Router } from 'express';
-// Remove duplicate import since brandsController is already imported above
-
-// Router is already declared above, no need to redeclare
-
-router.get('/brands', brandsController.getAll);
-router.get('/brands/:id', brandsController.getById);
-router.post('/brands', brandsController.create);
-router.put('/brands/:id', brandsController.updateByID);
-router.delete('/brands/:id', brandsController.deleteById);
 
 export default router;

@@ -1,23 +1,26 @@
 ### GET ALL
 GET http://localhost:8080/api/v1/brands
 
+### GET One (use a valid ObjectId from your database)
+GET http://localhost:8080/api/v1/brands/65f3f1234567890123456789
 
-### GET One
-GET http://localhost:8080/api/v1/brands/2
-
-### create
+### Create
 POST http://localhost:8080/api/v1/brands
 Content-Type: application/json
 
 {
-  "brand_name": "s",
-  "description": "jhdsjdhsjh"
+    "brandName": "New Brand",
+    "description": "Brand description"
 }
 
-### uPDATE
-PUT http://localhost:8080/api/v1/brands/1
+### Update (use a valid ObjectId from your database)
+PUT http://localhost:8080/api/v1/brands/65f3f1234567890123456789
 Content-Type: application/json
 
 {
-  "name": "Electricity"
+    "brandName": "Updated Brand",
+    "description": "Updated description"
 }
+
+### Delete (use a valid ObjectId from your database)
+DELETE http://localhost:8080/api/v1/brands/65f3f1234567890123456789

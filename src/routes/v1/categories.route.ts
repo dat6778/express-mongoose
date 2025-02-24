@@ -1,5 +1,5 @@
-import express from "express";
-import * as categoriesController from "../../controllers/categories.controller";
+import express, { Request, Response } from "express";
+import categoriesController from "../../controllers/categories.controller";
 const router = express.Router();
 
 /**
@@ -8,18 +8,28 @@ const router = express.Router();
  */
 
 // Get All Categories
-// GET /api/v1/categories
-router.get("/categories", categoriesController.getAllCategories);
-// Get Category by Id
-router.get("/categories/:id", categoriesController.getById);
-// Create Category
-// POST /api/v1/categories
-router.post("/categories", categoriesController.create);
-// Update Category
-// PUT /api/v1/categories/:id
-router.put("/categories/:id", categoriesController.updateByID);
-// DELETE /api/v1/categories/:id
-router.delete("/categories/:id", categoriesController.deleteById);
+router.get("/categories", async (req: Request, res: Response) => {
+    return await categoriesController.getAll(req, res);
+});
 
-/// + Resource API = bao gồm nhiều phương thức
+// Get Category by Id
+router.get("/categories/:id", async (req: Request<{ id: string }, any, any>, res: Response) => {
+    return await categoriesController.getById(req, res);
+});
+
+// Create Category
+router.post("/categories", async (req: Request, res: Response) => {
+    return await categoriesController.create(req, res);
+});
+
+// Update Category
+router.put("/categories/:id", async (req: Request, res: Response) => {
+    return await categoriesController.updateByID(req, res);
+});
+
+// Delete Category
+router.delete("/categories/:id", async (req: Request, res: Response) => {
+    return await categoriesController.deleteById(req, res);
+});
+
 export default router;

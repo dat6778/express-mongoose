@@ -1,4 +1,5 @@
 import Customer from '../models/customer.model';
+import createError from 'http-errors';
 
 class CustomerService {
     async getAll() {
@@ -6,7 +7,11 @@ class CustomerService {
     }
 
     async getById(id: string) {
-        return await Customer.findById(id).select('-password');
+        const customer = await Customer.findById(id).select('-password');
+        if (!customer) {
+            throw createError(404, 'Customer not found');
+        }
+        return customer;
     }
 
     async create(data: any) {
@@ -15,26 +20,40 @@ class CustomerService {
     }
 
     async updateById(id: string, data: any) {
-        // Don't allow password updates through this method
         if (data.password) {
             delete data.password;
         }
-        return await Customer.findByIdAndUpdate(id, data, { 
+        const customer = await Customer.findByIdAndUpdate(id, data, { 
             new: true 
         }).select('-password');
+        if (!customer) {
+            throw createError(404, 'Customer not found');
+        }
+        return customer;
     }
 
     async deleteById(id: string) {
-        return await Customer.findByIdAndDelete(id);
+        const customer = await Customer.findByIdAndDelete(id);
+        if (!customer) {
+            throw createError(404, 'Customer not found');
+        }
+        return customer;
     }
 
-    // Additional methods for customer-specific operations
     async findByEmail(email: string) {
-        return await Customer.findOne({ email }).select('-password');
+        const customer = await Customer.findOne({ email }).select('-password');
+        if (!customer) {
+            throw createError(404, 'Customer not found');
+        }
+        return customer;
     }
 
     async findByPhone(phone: string) {
-        return await Customer.findOne({ phone }).select('-password');
+        const customer = await Customer.findOne({ phone }).select('-password');
+        if (!customer) {
+            throw createError(404, 'Customer not found');
+        }
+        return customer;
     }
 }
 

@@ -1,4 +1,5 @@
 import Staff from '../models/staff.model';
+import createError from 'http-errors';
 
 class StaffService {
     async getAll() {
@@ -6,7 +7,11 @@ class StaffService {
     }
 
     async getById(id: string) {
-        return await Staff.findById(id).select('-password');
+        const staff = await Staff.findById(id).select('-password');
+        if (!staff) {
+            throw createError(404, 'Staff not found');
+        }
+        return staff;
     }
 
     async create(data: any) {
@@ -15,11 +20,24 @@ class StaffService {
     }
 
     async updateById(id: string, data: any) {
-        return await Staff.findByIdAndUpdate(id, data, { new: true }).select('-password');
+        if (data.password) {
+            delete data.password;
+        }
+        const staff = await Staff.findByIdAndUpdate(id, data, { 
+            new: true 
+        }).select('-password');
+        if (!staff) {
+            throw createError(404, 'Staff not found');
+        }
+        return staff;
     }
 
     async deleteById(id: string) {
-        return await Staff.findByIdAndDelete(id);
+        const staff = await Staff.findByIdAndDelete(id);
+        if (!staff) {
+            throw createError(404, 'Staff not found');
+        }
+        return staff;
     }
 }
 
