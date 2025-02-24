@@ -11,7 +11,6 @@ import { Types } from 'mongoose';
  * - Không nên xử lý nghiệp vụ ở controller
  */
 
-
 const getAll = async (req: Request, res: Response) => {
     const categories = await categoriesService.getAll();
     // res.status(200).json({
